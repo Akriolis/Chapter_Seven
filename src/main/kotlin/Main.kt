@@ -1,3 +1,4 @@
+import java.beans.PropertyChangeListener
 import java.math.BigDecimal
 import kotlin.IndexOutOfBoundsException
 import java.time.LocalDate
@@ -159,7 +160,39 @@ fun splitFilename2(fullName: String): NameComponents{
  * Destructuring declarations and loops
  */
 
+fun printEntries (map: Map<String, String>){
+    for ((key, value) in map){
+        println("$key -> $value")
+    }
+}
 
+/**
+ * Delegated properties
+ *
+ * delegation is a design pattern where an object, instead of performing a task,
+ * delegates that task to another helper object (which called a delegate)
+ *
+ * class Foo{
+ * var p: Type by Delegate()
+ * }
+ *
+ * Lazy initialization
+ * pattern that entails creating part of an object on demand,
+ * when it's accessed for the first time
+ *
+ * backing property technique
+ *
+ * lazy standard function
+ *
+ */
+
+/**
+ * Implementing delegated properties
+ */
+
+/**
+ * Expando objects
+ */
 
 fun main(){
     val p1 = Point(10,20)
@@ -249,7 +282,39 @@ fun main(){
     println(name)
     println(ext)
 
+    val map = mapOf("Oracle" to "Java", "JetBrains" to "Kotlin")
+    printEntries(map)
 
+    val p = Person2("Alice")
+    p.emails
 
+    val p10 = Person4("Dmitry", 34, 2000)
+
+    p10.addPropertyChangeListener(
+        PropertyChangeListener { event ->
+            println("Property ${event.propertyName} changed " +
+            "from ${event.oldValue} to ${event.newValue}")
+
+        }
+    )
+
+    p10.age = 35
+    p10.salary = 2100
+
+    val p11 = Person5("Stuart", 25, 1000)
+    p11.age = 26
+    p11.salary = 1100
+
+    val p12 = Person6("Joe", 20, 500)
+    p12.age = 21
+    p12.salary = 510
+
+    val p13 = Person8()
+    val data = mapOf("name" to "Dmitry", "company" to "JetBrains")
+
+    for ((attrName, value) in data)
+        p13.setAttribute(attrName, value)
+
+    println(p13.name)
 
 }
